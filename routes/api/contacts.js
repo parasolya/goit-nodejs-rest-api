@@ -5,9 +5,9 @@ const { getAll,
   updateById,
   deleteById,
   updateStatusContact } = require("../../controllers/contacts/index");
-const { isEmptyBody } = require("../../middlewares/index");
-const { isValidId } = require("../../middlewares/index");
-const { authenticate } = require("../../middlewares/index");
+const { upload, isEmptyBody, isValidId, authenticate } = require("../../middlewares/index");
+// const { isValidId } = require("../../middlewares/index");
+// const { authenticate } = require("../../middlewares/index");
 const { ctrlWrapper } = require("../../decorators/index");
 
 const router = express.Router();
@@ -23,8 +23,11 @@ router.get("/", ctrlWrapper(getAll));
 
 router.get("/:id", isValidId, ctrlWrapper(getById));
 
+// upload.fields([{name: "poster", maxCount: 1}])
+// upload.array("poster", 8)
 router.post(
   "/",
+  upload.single("avatar"),
   isEmptyBody,
   validateBody(contactAddSchema),
   ctrlWrapper(add)
