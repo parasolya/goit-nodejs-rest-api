@@ -1,4 +1,5 @@
 const Joi = require("joi");
+
 const contactAddSchema = Joi.object({
     name: Joi.string().required().messages({
       "any.required": `"name" must be exist`,
@@ -9,7 +10,7 @@ const contactAddSchema = Joi.object({
     phone: Joi.string().required().messages({
       "any.required": `"phone" must be exist`,
     }),
-    avatar: Joi.string(),
+    // avatar: Joi.string(),
     favorite: Joi.boolean(),
   });
 

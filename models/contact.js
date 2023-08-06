@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const requiredList = require("../constants/index")
+const requiredList = require("../constants/contact-constants")
 const  { handleSaveError, handleUpdateValidate } = require("./hooks");
 
 const contactSchema = new Schema({
@@ -17,10 +17,10 @@ const contactSchema = new Schema({
         type: Boolean,
         default: false,
       },
-      avatar: {
-        type: String,
-        required: true,
-    },
+    //   avatar: {
+    //     type: String,
+    //     required: true,
+    // },
       owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',

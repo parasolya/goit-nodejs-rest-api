@@ -1,4 +1,4 @@
-const HttpError = require("../helpers/index");
+const HttpError = require("../helpers/HttpError");
 
 const isEmptyBody = (req, res, next)=> {
     const {length} = Object.keys(req.body);

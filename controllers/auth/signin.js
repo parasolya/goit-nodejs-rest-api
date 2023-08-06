@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 const User = require("../../models/user");
-const HttpError = require("../../helpers/index");
-const { ctrlWrapper } = require("../../decorators/index");
+const HttpError = require("../../helpers/HttpError");
+// const { ctrlWrapper } = require("../../decorators/index");
 
 dotenv.config();
 const {JWT_SECRET} = process.env;
@@ -34,4 +34,4 @@ const signin = async(req, res)=> {
     })
 };
 
-module.exports = { signin: ctrlWrapper(signin) };
+module.exports = signin;

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
-const HttpError = require("../helpers/index");
+const HttpError = require("../helpers/HttpError");
 const { ctrlWrapper } = require("../decorators/index");
 
 const dotenv = require("dotenv");
@@ -13,7 +13,7 @@ const authenticate = async(req, res, next)=> {
     
     const {authorization = ""} = req.headers;
     const [bearer, token] = authorization.split(" ");
-    if(bearer !== "Bearer") {        
+    if(bearer !== "Bearer" || !token) {        
         throw HttpError(401);
     }
 

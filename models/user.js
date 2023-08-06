@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const  { handleSaveError, handleUpdateValidate } = require("./hooks");
 
-const emailRegexp = require("../constants/index");
+const emailRegexp = require("../constants/user-constants");
 
 const userSchema = new Schema({
     password: {
@@ -20,10 +20,11 @@ const userSchema = new Schema({
       enum: ["starter", "pro", "business"],
       default: "starter"
     },
-  //   avatarURL: {
-  //     type: String,
-  //     required: true,
-  // },
+    avatarURL: {
+      type: String,
+      // default: "not found",
+      // required: true,
+  },
     token: {
       type: String,
   }

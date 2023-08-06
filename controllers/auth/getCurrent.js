@@ -1,12 +1,12 @@
-const { ctrlWrapper } = require("../../decorators/index");
+// const { ctrlWrapper } = require("../../decorators/index");
 
 
 const getCurrent = (req, res)=> {
-    const {email, subscription} = req.user;
+    const {email, subscription, avatarURL} = req.user;
 
     res.json({
-        email, subscription
+        email, subscription, avatarURL
     })
 };
 
-module.exports = { getCurrent: ctrlWrapper(getCurrent) }
+module.exports = getCurrent;

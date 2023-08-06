@@ -1,6 +1,6 @@
 const User = require("../../models/user");
 
-const { ctrlWrapper } = require("../../decorators/index");
+// const { ctrlWrapper } = require("../../decorators/index");
 
 
 const signout = async(req, res) => {
@@ -12,4 +12,4 @@ const signout = async(req, res) => {
     });
 };
 
-module.exports = { signout: ctrlWrapper(signout) };
+module.exports = signout;
