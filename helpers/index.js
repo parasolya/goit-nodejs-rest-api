@@ -1,3 +1,7 @@
 const HttpError = require("../helpers/HttpError");
+const sendEmail = require("../helpers/sendEmail");
 
-module.export = HttpError;
+module.exports = {
+    HttpError,
+    sendEmail
+}
