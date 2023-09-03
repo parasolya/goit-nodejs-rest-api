@@ -7,6 +7,7 @@ const { ctrlWrapper } = require("../../decorators/index");
 const {
   userSignupSchema,
   userSigninSchema,
+  userEmailSchema,
 } = require("../../schemas/users-schemas");
 
 const {
@@ -15,6 +16,8 @@ const {
   getCurrent,
   signout,
   updateUserAvatar,
+  verify,
+  resendVerifyEmail,
 } = require("../../controllers/auth/index");
 
 const authRouter = express.Router();
@@ -25,6 +28,14 @@ authRouter.post(
   "/register",
   validateBody(userSignupSchema),
   ctrlWrapper(signup)
+);
+
+authRouter.get("/verify/:verificationToken", ctrlWrapper(verify));
+
+authRouter.post(
+  "/verify",
+  validateBody(userEmailSchema),
+  ctrlWrapper(resendVerifyEmail)
 );
 
 authRouter.post("/login", validateBody(userSigninSchema), ctrlWrapper(signin));

@@ -1,14 +1,12 @@
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
+const { nanoid } = require("nanoid");
+dotenv.config();
+const {BASE_URL} = process.env;
 
 const User = require("../../models/user");
-const HttpError = require("../../helpers/HttpError");
+const { HttpError, sendEmail } = require("../../helpers");
 const gravatar = require("gravatar");
-
-// const fs = require("fs/promises");
-// const path = require("path");
-
-// const avatarURLPath = path.resolve("public", "avatars");
 
 dotenv.config();
 const signup = async(req, res)=> {
@@ -20,14 +18,21 @@ const signup = async(req, res)=> {
         throw HttpError(409, `Email ${email} in use`);
     };
 
-    // const {path: oldPath, filename} = req.file;
-    // const newPath = path.join(avatarURLPath , filename);
-    // await fs.rename(oldPath, newPath);
-    // const avatarURL = path.join("avatars", filename);
+   
     const avatarURL = gravatar.url(email);
 
-    const hashPassword = await bcrypt.hash(password, 10);    
-    const newUser = await User.create({...req.body, avatarURL, password: hashPassword}); 
+    const hashPassword = await bcrypt.hash(password, 10);
+    const verificationToken = nanoid();    
+    const newUser = await User.create({...req.body, avatarURL, password: hashPassword, verificationToken}); 
+    
+    const verifyEmail = {
+        to: email,
+        subject: "Verify email",
+        html: `<a href="${BASE_URL}/api/users/verify/${verificationToken}" target="_blank">Click verify email</a>`
+    };
+
+    await sendEmail(verifyEmail);
+    
     res.status(201).json({        
         email: newUser.email,
         subscription: newUser.subscription,

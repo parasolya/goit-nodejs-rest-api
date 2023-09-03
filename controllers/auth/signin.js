@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 const User = require("../../models/user");
-const HttpError = require("../../helpers/HttpError");
+const { HttpError } = require("../../helpers");
 // const { ctrlWrapper } = require("../../decorators/index");
 
 dotenv.config();
@@ -15,6 +15,10 @@ const signin = async(req, res)=> {
     if(!user) {
         throw HttpError(401, "email invalid");
     };  
+
+    if(!user.verify) {
+        throw HttpError(401, "Check and verify your email");
+    }
 
     const passwordCompare = await bcrypt.compare(password, user.password); 
      
